@@ -4,10 +4,8 @@
 #you can change these values to change the number of CAs tested
 CAS=3
 
-
-
 ############################################################
-# Verify the the certificates without a CRT
+# Verify the the certificates without a CRL
 ############################################################
 
 #generate root key pair
@@ -25,23 +23,15 @@ cat root.crt > chain3.crt
 ############################################################
 
 for i in `seq 1 $CAS`; do
-    	echo "CA $i"
-    
-    	SIGNER_CERT=root.crt
-   	 SIGNER_KEY=root.key
-    
 
-    	#generate key pair
-   	 openssl genrsa -out ca$i.key 4096
+	#verifying Certificates against themselves
+    	echo "Verifying CA $i using chain$i.crt"
+    	openssl verify -CAfile chain$i.crt ca$i.crt
 
-    	#generate signing request
-    	openssl req -new -key ca$i.key -subj "$DN/CN=CA$i" -out ca$i.csr
+	#verifying clients using their CAs	
+	echo "Verifying client: client$i.crt using chain$i.crt"
 
-    	#sign new cert
-    	openssl x509 -req -days $DAYS -in ca$i.csr -CA $SIGNER_CERT -CAkey $SIGNER_KEY \
-            -set_serial $i -out ca$i.crt
-    	cat ca$i.crt >> chain$i.crt
-
+	
 
 	############################################################
 	# Generate cert for client signed by leaf CAs
