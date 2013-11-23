@@ -1,0 +1,67 @@
+#!/bin/sh
+
+
+#you can change these values to change the number of CAs tested
+CAS=3
+
+
+
+############################################################
+# Verify the the certificates without a CRT
+############################################################
+
+#generate root key pair
+openssl genrsa -out root.key 4096
+
+#generate root self-signed cert
+openssl req -new -x509 -days $DAYS -key root.key -subj "$DN/CN=Root" -out root.crt
+#creating the certification chains
+cat root.crt > chain1.crt
+cat root.crt > chain2.crt
+cat root.crt > chain3.crt
+
+############################################################
+# Generate subordinate certificate authority hierarchy
+############################################################
+
+for i in `seq 1 $CAS`; do
+    	echo "CA $i"
+    
+    	SIGNER_CERT=root.crt
+   	 SIGNER_KEY=root.key
+    
+
+    	#generate key pair
+   	 openssl genrsa -out ca$i.key 4096
+
+    	#generate signing request
+    	openssl req -new -key ca$i.key -subj "$DN/CN=CA$i" -out ca$i.csr
+
+    	#sign new cert
+    	openssl x509 -req -days $DAYS -in ca$i.csr -CA $SIGNER_CERT -CAkey $SIGNER_KEY \
+            -set_serial $i -out ca$i.crt
+    	cat ca$i.crt >> chain$i.crt
+
+
+	############################################################
+	# Generate cert for client signed by leaf CAs
+	############################################################
+
+	#generate key pair
+	openssl genrsa -out client$i.key 4096
+
+	#generate signing request
+	openssl req -new -key client$i.key -subj "$DN/CN=Client$i" -out client$i.csr
+
+	#sign new cert
+	openssl x509 -req -days $DAYS -in client$i.csr -CA ca$i.crt \
+    -CAkey ca$i.key -set_serial 400 -out client$i.crt
+
+
+done
+
+############################################################
+# Establishing trust between CA1 and CA2
+############################################################
+cat ca1.crt >> chain2.crt
+cat ca2.crt >> chain1.crt
