@@ -7,3 +7,9 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#Generated certificates and keys#
+#######################
+.crt
+.key
+.crl
