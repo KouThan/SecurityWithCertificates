@@ -5,7 +5,7 @@
 DAYS=$((3*365))
 CAS=3
 DN="/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI"
-touch crl.txt
+touch index.txt
 
 ############################################################
 # Generate root certificate authority cert

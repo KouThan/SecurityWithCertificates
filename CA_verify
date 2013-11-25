@@ -41,13 +41,19 @@ done
 ############################################################
 # Creating CRL that includes CA2
 ############################################################
-
-
-
-
+#revoking ca2
+openssl ca -config ./openssl.cnf -revoke ca2.crt
+#generating the crl
+openssl ca -config ./openssl.cnf -gencrl -out crl.pem
 
 
 ############################################################
 # Verify the the certificates using a CRL
 ############################################################
+for i in `seq 1 $CAS`; do
+
+	#verifying Certificates using a crl
+    	echo "Verifying CA $i using chain$i.crt"
+    	openssl verify -crl_check -CAfile chain$i.crt ca$i.crt
+done
 

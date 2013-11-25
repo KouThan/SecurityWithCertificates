@@ -1,26 +1,27 @@
-
 # OpenSSL configuration file.
 #
- 
 # Establish working directory.
  
 dir					= .
  
 [ ca ]
-default_ca				= CA_default
+default_ca				= Root
  
-[ CA_default ]
+[ Root ]
 serial					= $dir/
-database				= $dir/crl.txt
+database				= $dir/index.txt
 new_certs_dir				= $dir/
 certificate				= $dir/root.crt
 private_key				= $dir/root.key.pem
+crl_dir					= $dir/
+crl					= $dir/crl.pem
 default_days				= 365
-default_md				= md5
+default_crl_days			= 365
+default_md				= sha1
 preserve				= no
 email_in_dn				= no
-nameopt					= default_ca
-certopt					= default_ca
+nameopt					= Root
+certopt					= Root
 policy					= policy_match
  
 [ policy_match ]
@@ -32,10 +33,10 @@ commonName				= supplied
 emailAddress				= optional
  
 [ req ]
-default_bits				= 4096			# Size of keys
-default_keyfile				= key.crt.pem		# name of generated keys
-default_md				= md5				# message digest algorithm
-string_mask				= nombstr		# permitted characters
+default_bits				= 4096			
+default_keyfile				= key.crt.pem		
+default_md				= sha1				
+string_mask				= nombstr		
 distinguished_name			= req_distinguished_name
 req_extensions				= v3_req
  
