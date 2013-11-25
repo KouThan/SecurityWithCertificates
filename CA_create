@@ -5,17 +5,20 @@
 DAYS=$((3*365))
 CAS=3
 DN="/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI"
-
+touch crl.txt
 
 ############################################################
 # Generate root certificate authority cert
 ############################################################
 
+
 #generate root key pair
-openssl genrsa -out root.key 4096
+openssl genrsa -out root.key.pem 4096
 
 #generate root self-signed cert
-openssl req -new -x509 -days $DAYS -key root.key -subj "$DN/CN=Root" -out root.crt
+openssl req -new -x509 -extensions v3_ca -key root.key.pem -out root.crt -days $DAYS -subj "$DN/CN=Root" -config ./openssl.cnf
+
+
 #creating the certification chains
 cat root.crt > chain1.crt
 cat root.crt > chain2.crt
@@ -29,14 +32,14 @@ for i in `seq 1 $CAS`; do
     	echo "CA $i"
     
     	SIGNER_CERT=root.crt
-   	 SIGNER_KEY=root.key
+   	 SIGNER_KEY=root.key.pem
     
 
     	#generate key pair
-   	 openssl genrsa -out ca$i.key 4096
+   	 openssl genrsa -out ca$i.key.pem 4096
 
     	#generate signing request
-    	openssl req -new -key ca$i.key -subj "$DN/CN=CA$i" -out ca$i.csr
+    	openssl req -config ./openssl.cnf -new -key ca$i.key.pem -subj "$DN/CN=CA$i" -out ca$i.csr 
 
     	#sign new cert
     	openssl x509 -req -days $DAYS -in ca$i.csr -CA $SIGNER_CERT -CAkey $SIGNER_KEY \
@@ -49,14 +52,14 @@ for i in `seq 1 $CAS`; do
 	############################################################
 
 	#generate key pair
-	openssl genrsa -out client$i.key 4096
+	openssl genrsa -out client$i.key.pem 4096
 
 	#generate signing request
-	openssl req -new -key client$i.key -subj "$DN/CN=Client$i" -out client$i.csr
+	openssl req -new -key client$i.key.pem -subj "$DN/CN=Client$i" -out client$i.csr
 
 	#sign new cert
 	openssl x509 -req -days $DAYS -in client$i.csr -CA ca$i.crt \
-    -CAkey ca$i.key -set_serial 400 -out client$i.crt
+    -CAkey ca$i.key.pem -set_serial 400 -out client$i.crt
 
 
 done
