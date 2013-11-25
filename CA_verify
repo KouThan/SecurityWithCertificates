@@ -8,20 +8,6 @@ Clients=3
 # Verify the the certificates without a CRL
 ############################################################
 
-#generate root key pair
-openssl genrsa -out root.key 4096
-
-#generate root self-signed cert
-openssl req -new -x509 -days $DAYS -key root.key -subj "$DN/CN=Root" -out root.crt
-#creating the certification chains
-cat root.crt > chain1.crt
-cat root.crt > chain2.crt
-cat root.crt > chain3.crt
-
-############################################################
-# Generate subordinate certificate authority hierarchy
-############################################################
-
 for i in `seq 1 $CAS`; do
 
 	#verifying Certificates against themselves
