@@ -27,11 +27,16 @@ done
 ############################################################
 # Creating CRL that includes CA2
 ############################################################
+#creating the crl index file that is not created automatically by openssl
+echo "01" > ./crlindex
 #revoking ca2
 openssl ca -config ./openssl.cnf -revoke ca2.crt
 #generating the crl
 openssl ca -config ./openssl.cnf -gencrl -out crl.pem
-
+#inserting the crl file into the certificate chain for all CRLs
+cat crl.pem >> chain1.crt
+cat crl.pem >> chain2.crt
+cat crl.pem >> chain3.crt
 
 ############################################################
 # Verify the the certificates using a CRL
