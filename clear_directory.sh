@@ -7,3 +7,4 @@ rm *.txt
 rm *.old
 rm *.key
 rm *.attr
+rm crlindex
