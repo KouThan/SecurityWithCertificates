@@ -1,0 +1,60 @@
+Script started on Κυρ 01 Δεκ 2013 05:56:26 μμ EET
+]0;thanassis@thanassis-VirtualBox: ~/Desktop/CACreateVerifythanassis@thanassis-VirtualBox:~/Desktop/CACreateVerify$ exit./CA_verify 
+Verifying CA 1 using chain1.crt
+ca1.crt: OK
+Verifying CA 2 using chain2.crt
+ca2.crt: OK
+Verifying CA 3 using chain3.crt
+ca3.crt: OK
+Verifying client: client1.crt using chain1.crt
+client1.crt: OK
+Verifying client: client2.crt using chain1.crt
+client2.crt: OK
+Verifying client: client3.crt using chain1.crt
+client3.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = Client3
+error 20 at 0 depth lookup:unable to get local issuer certificate
+Verifying client: client1.crt using chain2.crt
+client1.crt: OK
+Verifying client: client2.crt using chain2.crt
+client2.crt: OK
+Verifying client: client3.crt using chain2.crt
+client3.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = Client3
+error 20 at 0 depth lookup:unable to get local issuer certificate
+Verifying client: client1.crt using chain3.crt
+client1.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = Client1
+error 20 at 0 depth lookup:unable to get local issuer certificate
+Verifying client: client2.crt using chain3.crt
+client2.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = Client2
+error 20 at 0 depth lookup:unable to get local issuer certificate
+Verifying client: client3.crt using chain3.crt
+client3.crt: OK
+Using configuration from ./openssl.cnf
+Adding Entry with serial number 02 to DB for /C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=CA2
+Revoking Certificate 02.
+Data Base Updated
+Using configuration from ./openssl.cnf
+Verifying client: client1.crt using chain1.crt
+ca1.crt: OK
+Verifying client: client2.crt using chain1.crt
+ca1.crt: OK
+Verifying client: client3.crt using chain1.crt
+ca1.crt: OK
+Verifying client: client1.crt using chain2.crt
+ca2.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = CA2
+error 23 at 0 depth lookup:certificate revoked
+Verifying client: client2.crt using chain2.crt
+ca2.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = CA2
+error 23 at 0 depth lookup:certificate revoked
+Verifying client: client3.crt using chain2.crt
+ca2.crt: C = GR, ST = Attiki, L = Athens, O = Harokopoio, OU = PKI, CN = CA2
+error 23 at 0 depth lookup:certificate revoked
+Verifying client: client1.crt using chain3.crt
+ca3.crt: OK
+Verifying client: client2.crt using chain3.crt
+ca3.crt: OK
+Verifying client: client3.crt using chain3.crt
+ca3.crt: OK
+]0;thanassis@thanassis-VirtualBox: ~/Desktop/CACreateVerifythanassis@thanassis-VirtualBox:~/Desktop/CACreateVerify$ exit
+exit
+
+Script done on Κυρ 01 Δεκ 2013 05:56:31 μμ EET

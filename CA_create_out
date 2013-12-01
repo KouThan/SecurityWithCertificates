@@ -1,0 +1,55 @@
+Script started on Κυρ 01 Δεκ 2013 05:33:40 μμ EET
+]0;thanassis@thanassis-VirtualBox: ~/Desktop/CACreateVerifythanassis@thanassis-VirtualBox:~/Desktop/CACreateVerify$ ./CA_create 
+Generating RSA private key, 4096 bit long modulus
+.....................................................++
+...........................................................................................................................................++
+e is 65537 (0x10001)
+CA 1
+Generating RSA private key, 4096 bit long modulus
+................................................................................................................................................................................................................++
+....................................................................................................................................................++
+e is 65537 (0x10001)
+Signature ok
+subject=/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=CA1
+Getting CA Private Key
+Generating RSA private key, 4096 bit long modulus
+.............++
+..........................................................++
+e is 65537 (0x10001)
+Signature ok
+subject=/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=Client1
+Getting CA Private Key
+CA 2
+Generating RSA private key, 4096 bit long modulus
+...................................++
+..........++
+e is 65537 (0x10001)
+Signature ok
+subject=/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=CA2
+Getting CA Private Key
+Generating RSA private key, 4096 bit long modulus
+............++
+....................++
+e is 65537 (0x10001)
+Signature ok
+subject=/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=Client2
+Getting CA Private Key
+CA 3
+Generating RSA private key, 4096 bit long modulus
+.....................................++
+............++
+e is 65537 (0x10001)
+Signature ok
+subject=/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=CA3
+Getting CA Private Key
+Generating RSA private key, 4096 bit long modulus
+.............++
+..........................................................................................................................................................................++
+e is 65537 (0x10001)
+Signature ok
+subject=/C=GR/ST=Attiki/L=Athens/O=Harokopoio/OU=PKI/CN=Client3
+Getting CA Private Key
+]0;thanassis@thanassis-VirtualBox: ~/Desktop/CACreateVerifythanassis@thanassis-VirtualBox:~/Desktop/CACreateVerify$ exirt[K[Kt
+exit
+
+Script done on Κυρ 01 Δεκ 2013 05:33:59 μμ EET

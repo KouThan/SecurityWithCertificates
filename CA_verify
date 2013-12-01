@@ -42,9 +42,10 @@ cat crl.pem >> chain3.crt
 # Verify the the certificates using a CRL
 ############################################################
 for i in `seq 1 $CAS`; do
-
-	#verifying Certificates using a crl
-    	echo "Verifying CA $i using chain$i.crt"
-    	openssl verify -crl_check -CAfile chain$i.crt ca$i.crt
+	for j in `seq 1 $Clients`; do
+			
+		echo "Verifying client: client$j.crt using chain$i.crt"
+		openssl verify -crl_check -CAfile chain$i.crt ca$i.crt
+	done
 done
 
